@@ -1,0 +1,10 @@
+<form style="background-color: aquamarine" [formGroup]="mainForm">
+  <label>Question</label>
+  <input type="text" formControlName="question" placeholder="question">
+  <div *ngFor="let option of mainForm.value.options; index as i;">
+    <label>Option {{i + 1}}</label>
+    <input type="text" placeholder="your poll option{{i + 1}}">
+  </div>
+  <button (click)="addOption()">add Options</button>
+</form>
+
