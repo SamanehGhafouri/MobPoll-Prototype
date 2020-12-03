@@ -1,10 +1,26 @@
 <form style="background-color: aquamarine" [formGroup]="mainForm">
-  <label>Question</label>
-  <input type="text" formControlName="question" placeholder="question">
+  <div class="form-group">
+    <label>
+      <span>Question</span>
+    </label>
+    <input type="text" class="form-control" placeholder="question"  formControlName="question" required>
+    <div class="alert alert-danger" *ngIf="question.invalid && (question.dirty || question.touched)" >
+      <div *ngIf="question.errors.required">
+        question is required
+      </div>
+      <div *ngIf="question.errors.minlength">
+        Question must be at least 4 character
+      </div>
+    </div>
+    </div>
+
+
   <div *ngFor="let option of mainForm.value.options; index as i;">
     <label>Option {{i + 1}}</label>
     <input type="text" placeholder="your poll option{{i + 1}}">
+    <input type="file" placeholder="click">
   </div>
-  <button (click)="addOption()">add Options</button>
+  <a (click)="addOption()" style="color: blue; cursor:pointer;">+ Add Options</a>
+  <button (click)="onSubmit()">Submit</button>
 </form>
 
