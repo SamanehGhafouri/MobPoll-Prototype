@@ -13,16 +13,31 @@
       </div>
     </div>
     <div>
+
+
+
       <ng-container formArrayName="options">
-        <div *ngFor="let option of options.controls; index as i">
+        <div *ngFor="let op of options.controls; index as i">
           <label>
             <span>Options {{i + 1}}</span>
           </label>
-          <input type="text" [formControlName]="i" placeholder="Enter Option {{i + 1}}">
+          <input type="text" class="form-control" [formControlName]="i" placeholder="Enter Option {{i + 1}}">
+<!--          <label *ngIf="getOption.invalid && (getOption.dirty || getOption.touched)" [ngClass]="'error'" class="alert alert-danger">Option is required</label>-->
+            <div class="alert alert-danger" *ngIf="op.invalid && (op.dirty || op.touched)">
+            <div *ngIf="op.errors.required">
+              option {{i + 1}} is required
+            </div>
+            <div *ngIf="op.errors.minlength">
+              option {{i + 1}} must be at least 4 character
+            </div>
+          </div>
           <input type="file" placeholder="click">
         </div>
         <a (click)="addOption()" style="color: blue; cursor:pointer;">+ Add Options</a>
       </ng-container>
+
+
+
     </div>
   </div>
   <button>Submit</button>

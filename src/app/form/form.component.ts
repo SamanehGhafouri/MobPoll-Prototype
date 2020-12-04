@@ -1,11 +1,21 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
+//Validate the FormArray
+function validateSize(arr: FormArray) {
+  return arr.length < 2 ? {
+    invalidSize: true
+  } : null;
+}
+
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
+
+
 export class FormComponent implements OnInit{
   mainForm: FormGroup;
   constructor() {
@@ -17,8 +27,8 @@ export class FormComponent implements OnInit{
       question: new FormControl('', [Validators.required,
         Validators.minLength(4)]),
       options: new FormArray([
-        new FormControl(''),
-        new FormControl(''),
+        new FormControl('', [Validators.required, Validators.minLength(4)]),
+        new FormControl('', [Validators.required, Validators.minLength(4)]),
         new FormControl(''),
         new FormControl(''),
         new FormControl('')
@@ -27,9 +37,17 @@ export class FormComponent implements OnInit{
 
   }
   // Show the array of formControl
-  get options(){
+  get options(): FormArray{
     return this.mainForm.get('options') as FormArray;
   }
+
+  // get getOption(){
+  //
+  //     return this.mainForm.options.get(0);
+  //
+  // }
+
+
   addOption(){
     if (this.options.length < 15) {
       this.options.push(new FormControl(''));
