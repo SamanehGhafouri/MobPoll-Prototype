@@ -1,13 +1,19 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
-//Validate the FormArray
-function validateSize(arr: FormArray) {
-  return arr.length < 2 ? {
+function validateSize(form: FormControl) {
+  let poll_option_input = form.value;
+  poll_option_input = poll_option_input.trim(); // removes spaces from left and right of string
+  poll_option_input = poll_option_input.replace(/\s\s+/g, ' '); // removes extra spaces in between words
+  let option_input_words = poll_option_input.split(" "); // creates an array of words from string
+
+  console.log("Option Input Words", option_input_words)
+  console.log("Validate Size Input Value", form.value, option_input_words.length)
+
+  return option_input_words.length < 2 ? {
     invalidSize: true
   } : null;
 }
-
 
 @Component({
   selector: 'app-form',
@@ -15,11 +21,9 @@ function validateSize(arr: FormArray) {
   styleUrls: ['./form.component.css']
 })
 
-
 export class FormComponent implements OnInit{
   mainForm: FormGroup;
   constructor() {
-
   }
 
   ngOnInit(): void{
@@ -29,7 +33,7 @@ export class FormComponent implements OnInit{
       options: new FormArray([
         new FormControl('', [Validators.required, Validators.minLength(4)]),
         new FormControl('', [Validators.required, Validators.minLength(4)]),
-        new FormControl(''),
+        new FormControl('', [validateSize]),
         new FormControl(''),
         new FormControl('')
       ])
