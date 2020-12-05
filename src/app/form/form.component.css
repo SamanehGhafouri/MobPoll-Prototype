@@ -1,0 +1,4 @@
+/*if the input is touched and not valid, make the border red*/
+.form-control.ng-touched.ng-invalid{
+  border-color: red;
+}

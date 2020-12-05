@@ -2,40 +2,43 @@
   <div class="form-group">
     <label>
       <span>Question</span>
+      <span *ngIf="question.invalid && (question.dirty || question.touched)" style="color: red;">
+        X
+      </span>
     </label>
-    <input type="text" class="form-control" placeholder="question" formControlName="question" required>
-    <div class="alert alert-danger" *ngIf="question.invalid && (question.dirty || question.touched)">
-      <div *ngIf="question.errors.required">
-        question is required
-      </div>
-      <div *ngIf="question.errors.minlength">
-        Question must be at least 4 character
-      </div>
-    </div>
-    <div>
+<!--    <input type="text" class="form-control" [ngClass]="{'red-border-class': question.errors}" placeholder="question" formControlName="question" required>-->
+    <input type="text" class="form-control" ng-model="question" placeholder="question" formControlName="question" required>
+    <!--    <div class="alert alert-danger" *ngIf="question.invalid && (question.dirty || question.touched)">-->
+<!--          <div *ngIf="question.errors.required">-->
 
+<!--          </div>-->
+    <!--    </div>-->
+    <div>
 
 
       <ng-container formArrayName="options">
         <div *ngFor="let op of options.controls; index as i">
           <label>
             <span>Options {{i + 1}}</span>
+            <span *ngIf="op.invalid && (op.dirty || op.touched)" style="color: red">
+              X
+            </span>
           </label>
           <input type="text" class="form-control" [formControlName]="i" placeholder="Enter Option {{i + 1}}">
-<!--          <label *ngIf="getOption.invalid && (getOption.dirty || getOption.touched)" [ngClass]="'error'" class="alert alert-danger">Option is required</label>-->
-            <div class="alert alert-danger" *ngIf="op.invalid && (op.dirty || op.touched)">
-            <div *ngIf="op.errors.required">
-              option {{i + 1}} is required
-            </div>
-            <div *ngIf="op.errors.minlength">
-              option {{i + 1}} must be at least 4 character
-            </div>
-          </div>
+
+
+<!--          <div class="alert alert-danger" *ngIf="op.invalid && (op.dirty || op.touched)">-->
+<!--            <div *ngIf="op.errors.required">-->
+<!--              option {{i + 1}} is required-->
+<!--            </div>-->
+<!--            <div *ngIf="op.errors.minlength">-->
+<!--              option {{i + 1}} must be at least 4 character-->
+<!--            </div>-->
+<!--          </div>-->
           <input type="file" placeholder="click">
         </div>
         <a (click)="addOption()" style="color: blue; cursor:pointer;">+ Add Options</a>
       </ng-container>
-
 
 
     </div>

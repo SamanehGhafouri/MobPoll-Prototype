@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
+// Custom validation for poll question that needs to be at least 2 words
 function validateSize(form: FormControl) {
   let poll_option_input = form.value;
   poll_option_input = poll_option_input.trim(); // removes spaces from left and right of string
@@ -28,29 +29,27 @@ export class FormComponent implements OnInit{
 
   ngOnInit(): void{
     this.mainForm = new FormGroup({
-      question: new FormControl('', [Validators.required,
-        Validators.minLength(4)]),
+      question: new FormControl('', [validateSize]),
       options: new FormArray([
-        new FormControl('', [Validators.required, Validators.minLength(4)]),
-        new FormControl('', [Validators.required, Validators.minLength(4)]),
-        new FormControl('', [validateSize]),
+        new FormControl('', [Validators.required]),
+        new FormControl('', [Validators.required]),
+        new FormControl(''),
         new FormControl(''),
         new FormControl('')
       ])
     });
 
   }
-  // Show the array of formControl
+
+  // Get the fomControl question
+  get question(){
+    return this.mainForm.get('question');
+  }
+
+  // Get the array of formControl
   get options(): FormArray{
     return this.mainForm.get('options') as FormArray;
   }
-
-  // get getOption(){
-  //
-  //     return this.mainForm.options.get(0);
-  //
-  // }
-
 
   addOption(){
     if (this.options.length < 15) {
@@ -59,21 +58,44 @@ export class FormComponent implements OnInit{
     console.log("number of input", this.mainForm.value.options.length);
   }
 
-  get question(){
-    return this.mainForm.get('question');
-  }
-
-
   onSubmit(){
-    // this.submitted = true;
+
     if (this.mainForm.valid){
       alert('Form Submitted');
       console.table(this.mainForm.value);
     }
     else {
-      alert("The form is shit");
+      this.validateFormGroupField(this.mainForm);
+      this.validateFormArrayFields(this.options);
     }
   }
+
+  //Validating FormGroup Fields (question)
+  validateFormGroupField(formGroup: FormGroup){
+    Object.keys(formGroup.controls).forEach(field => {
+      const  control = formGroup.get(field);
+      if (control instanceof FormControl){
+        control.markAsTouched({onlySelf: true});
+      }
+      else if (control instanceof FormGroup) {
+        this.validateFormGroupField(control);
+      }
+    })
+  }
+
+  //Validating FormArray Fields (options)
+  validateFormArrayFields(formGroup: FormArray){
+    Object.keys(formGroup.controls).forEach(field => {
+      const  control = formGroup.get(field);
+      if (control instanceof FormControl){
+        control.markAsTouched({onlySelf: true});
+      }
+      else if (control instanceof FormArray) {
+        this.validateFormArrayFields(control);
+      }
+    })
+  }
+
 
 
 
