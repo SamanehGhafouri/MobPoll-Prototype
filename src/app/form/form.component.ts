@@ -1,5 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {NgbModalComponent} from "../ngb-modal/ngb-modal.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 // Custom validation for poll question that needs to be at least 2 words
 function validateSize(form: FormControl) {
@@ -24,7 +26,7 @@ function validateSize(form: FormControl) {
 
 export class FormComponent implements OnInit{
   mainForm: FormGroup;
-  constructor() {
+  constructor(private modalService: NgbModal) {
   }
 
   ngOnInit(): void{
@@ -65,6 +67,8 @@ export class FormComponent implements OnInit{
       console.table(this.mainForm.value);
     }
     else {
+      const modalRef = this.modalService.open(NgbModalComponent);
+      modalRef.componentInstance.name = 'World';
 
       this.validateFormGroupField(this.mainForm);
       this.validateFormArrayFields(this.options);

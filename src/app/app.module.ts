@@ -5,16 +5,20 @@ import { AppComponent } from './app.component';
 import { FormComponent } from './form/form.component';
 import { FormOptionsComponent } from './form-options/form-options.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { NgbModalComponent } from './ngb-modal/ngb-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormComponent,
-    FormOptionsComponent
+    FormOptionsComponent,
+    NgbModalComponent
   ],
     imports: [
         BrowserModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+
+
     ],
   providers: [],
   bootstrap: [AppComponent]
