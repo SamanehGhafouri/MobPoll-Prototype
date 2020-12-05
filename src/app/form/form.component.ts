@@ -65,6 +65,7 @@ export class FormComponent implements OnInit{
       console.table(this.mainForm.value);
     }
     else {
+
       this.validateFormGroupField(this.mainForm);
       this.validateFormArrayFields(this.options);
     }
