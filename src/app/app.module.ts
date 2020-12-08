@@ -17,8 +17,6 @@ import { NgbModalComponent } from './ngb-modal/ngb-modal.component';
     imports: [
         BrowserModule,
         ReactiveFormsModule,
-
-
     ],
   providers: [],
   bootstrap: [AppComponent]

@@ -26,6 +26,11 @@ function validateSize(form: FormControl) {
 
 export class FormComponent implements OnInit{
   mainForm: FormGroup;
+  // in order to use NgbModal you need to install:
+  // npm install bootstrap
+  // ng add @ng-bootstrap/ng-bootstrap
+  // npm install --save ngb-modal
+  // if any problem you should copy the packages from json file
   constructor(private modalService: NgbModal) {
   }
 
