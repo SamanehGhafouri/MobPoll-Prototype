@@ -8,6 +8,9 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { NgbModalComponent } from './ngb-modal/ngb-modal.component';
 import { IconsComponent } from './icons/icons.component';
 import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { AppRoutingModule } from './app-routing.module';
+import { PopupWindowComponent } from './popup-window/popup-window.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -15,13 +18,16 @@ import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     FormComponent,
     FormOptionsComponent,
     NgbModalComponent,
-    IconsComponent
+    IconsComponent,
+    PopupWindowComponent
   ],
-    imports: [
-        BrowserModule,
-        ReactiveFormsModule,
-        FontAwesomeModule,
-    ],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    AppRoutingModule,
+    RouterModule,
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

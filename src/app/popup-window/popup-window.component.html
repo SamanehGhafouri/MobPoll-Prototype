@@ -1,0 +1,19 @@
+<ng-template #content let-modal>
+<!--  <div class="modal-header dark-modal">-->
+<!--    <h4 class="modal-title">Modal title</h4>-->
+<!--    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">-->
+<!--      <span aria-hidden="true">&times;</span>-->
+<!--    </button>-->
+<!--  </div>-->
+  <div class="modal-body">
+    <h1>This is Title!</h1>
+    <p>One fine body</p>
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+<!--  <div class="modal-footer">-->
+<!--  </div>-->
+  <ng-content></ng-content>
+</ng-template>
+
+<button (click)="openBlackWindow(content)">Open this</button>
+<button class="btn btn-outline-primary mb-2 mr-2" (click)="openBlackWindow(content)">Modal with window custom class</button>
